@@ -15,7 +15,10 @@ public class QueryDispatcher(IComponentContext context) : IQueryDispatcher
     private readonly IComponentContext _context = context;
 
     ///inheritdoc/>
-    public async Task<TResult> QueryAsync<TResult>(IQuery<TResult> query)
+    public async Task<TResult> QueryAsync<TResult>(
+        IQuery<TResult> query,
+        CancellationToken cancellationToken = default
+    )
     {
         TResult result = default;
         try
@@ -24,7 +27,7 @@ public class QueryDispatcher(IComponentContext context) : IQueryDispatcher
                 .MakeGenericType(query.GetType(), typeof(TResult));
 
             dynamic handler = _context.Resolve(handlerType);
-            result = await handler.HandleAsync((dynamic)query);
+            result = await handler.HandleAsync((dynamic)query, cancellationToken);
 
             if(query is IDisposable queryDisposable)
                 queryDisposable.Dispose();

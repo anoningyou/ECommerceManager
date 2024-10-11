@@ -75,7 +75,7 @@ public static class ContainerBuilderExtensions
         builder.Register(x =>
         {
             DbContextOptionsBuilder<DataContext> optionsBuilder = new();
-            optionsBuilder.UseSqlite(connString).UseLoggerFactory(x.Resolve<ILoggerFactory>());
+            optionsBuilder.UseSqlServer(connString, b => b.MigrationsAssembly("OrdersManager")).UseLoggerFactory(x.Resolve<ILoggerFactory>());
             return new DataContext(optionsBuilder.Options);
         }).InstancePerLifetimeScope();
     }

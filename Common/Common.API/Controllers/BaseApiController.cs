@@ -4,6 +4,7 @@ using Common.API.CQRS.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Common.Interfaces.Pagination;
 using Common.Helpers.Pagination;
+using Common.API.Extensions;
 
 namespace Common.API.Controllers;
 
@@ -25,18 +26,26 @@ public class BaseApiController(IDispatcher dispatcher) : ControllerBase
     /// </summary>
     /// <typeparam name="TResult">The type of the query result.</typeparam>
     /// <param name="query">The query to execute.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>The result of the query.</returns>
-    protected Task<TResult> QueryAsync<TResult>(IQuery<TResult> query)
-        => _dispatcher.QueryAsync(query);
+    protected Task<TResult> QueryAsync<TResult>(
+        IQuery<TResult> query,
+        CancellationToken cancellationToken
+    )
+        => _dispatcher.QueryAsync(query, cancellationToken);
 
     /// <summary>
     /// Sends a command asynchronously.
     /// </summary>
     /// <typeparam name="TResult">The type of the command result.</typeparam>
     /// <param name="command">The command to send.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>The result of the command.</returns>
-    protected Task<TResult> SendAsync<TResult>(ICommand<TResult> command)
-        => _dispatcher.SendAsync(command);
+    protected Task<TResult> SendAsync<TResult>(
+        ICommand<TResult> command,
+        CancellationToken cancellationToken = default
+    )
+        => _dispatcher.SendAsync(command, cancellationToken);
 
     /// <summary>
     /// Returns a single item as an action result.
@@ -81,6 +90,8 @@ public class BaseApiController(IDispatcher dispatcher) : ControllerBase
         {
             return NotFound();
         }
+
+        Response.AddPaginationHeader(listResult);
 
         return Ok(listResult);
     }

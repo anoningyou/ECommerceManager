@@ -40,7 +40,10 @@ public class AccountController(
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>The registered user.</returns>
     [HttpPost(nameof(Register))]
-    public async Task<ActionResult<UserDto>> Register(RegisterCommand registerDto, CancellationToken cancellationToken)
+    public async Task<ActionResult<UserDto>> Register(
+        RegisterCommand registerDto,
+        CancellationToken cancellationToken
+    )
     {
         string normalizedUserName = registerDto.UserName.ToLower();
         if (await UserExistAsync(normalizedUserName, cancellationToken))
@@ -71,7 +74,10 @@ public class AccountController(
     /// Logs in a user.
     /// </summary>
     [HttpPost(nameof(Login))]
-    public async Task<ActionResult<UserDto>> Login(LoginQuery loginDto, CancellationToken cancellationToken)
+    public async Task<ActionResult<UserDto>> Login(
+        LoginQuery loginDto,
+        CancellationToken cancellationToken
+    )
     {
         AppUser user = await _userManager.Users
         .SingleOrDefaultAsync(x => x.NormalizedUserName == loginDto.UserName.ToUpper(), cancellationToken);

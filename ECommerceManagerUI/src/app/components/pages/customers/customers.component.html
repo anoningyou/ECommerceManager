@@ -1,0 +1,40 @@
+<mat-card class="container"
+          appearance="outlined">
+  <mat-card-header class="header">
+    <mat-card-title>Customers</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="content">
+    <mat-table class="table" [dataSource]="customers()">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <!-- LastName Column -->
+      <ng-container matColumnDef="lastName">
+        <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.lastName}} </mat-cell>
+      </ng-container>
+
+      <!-- Address Column -->
+      <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.address}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row class="table-header"  *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row class="customer-row" *matRowDef="let row; columns: displayedColumns;" [title]="'See report'" (click)="onCustomerClick(row)"></mat-row>
+    </mat-table>
+
+
+    <mat-paginator class="pager"
+                   [length]="customersResult().pagination?.totalCount"
+                   [pageSize]="customersResult().pagination?.pageSize"
+                   [pageSizeOptions]="[10, 25, 50, 100]"
+                   aria-label="Select page"
+                   (page)="onPagination($event)">
+    </mat-paginator>
+
+  </mat-card-content>
+</mat-card>

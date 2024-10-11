@@ -12,6 +12,10 @@ public interface ICommandDispatcher
     /// </summary>
     /// <typeparam name="TResult">The type of the result.</typeparam>
     /// <param name="command">The command to send.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A task representing the asynchronous operation, containing the result of the command.</returns>
-    Task<TResult> SendAsync<TResult>(ICommand<TResult> command);
+    Task<TResult> SendAsync<TResult>(
+        ICommand<TResult> command,
+        CancellationToken cancellationToken = default
+    );
 }

@@ -1,0 +1,1 @@
+import{la as i}from"./chunk-FVSJTNRY.js";var n=class r{transform(t,e=2){let a=Math.pow(10,e);return`${t/a}`}static \u0275fac=function(e){return new(e||r)};static \u0275pipe=i({name:"decimalPrice",type:r,pure:!0,standalone:!0})};export{n as a};

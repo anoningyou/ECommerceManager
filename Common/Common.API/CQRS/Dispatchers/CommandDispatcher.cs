@@ -16,7 +16,10 @@ public class CommandDispatcher(IComponentContext context) : ICommandDispatcher
     private readonly IComponentContext _context = context;
 
     ///<inheritdoc/>
-    public async Task<TResult> SendAsync<TResult>(ICommand<TResult> command)
+    public async Task<TResult> SendAsync<TResult>(
+        ICommand<TResult> command,
+        CancellationToken cancellationToken = default
+    )
     {
         TResult result = default;
         try
@@ -25,7 +28,7 @@ public class CommandDispatcher(IComponentContext context) : ICommandDispatcher
                 .MakeGenericType(command.GetType(), typeof(TResult));
 
             dynamic handler = _context.Resolve(handlerType);
-            result = await handler.HandleAsync((dynamic)command);
+            result = await handler.HandleAsync((dynamic)command,cancellationToken);
 
             if(command is IDisposable commandDisposable)
                 commandDisposable.Dispose();

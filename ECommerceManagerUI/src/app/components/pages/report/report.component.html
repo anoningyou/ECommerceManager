@@ -1,0 +1,56 @@
+<mat-card class="container"
+          appearance="outlined">
+  <mat-card-header class="header">
+    <mat-card-title>Report</mat-card-title>
+    <mat-card-subtitle>{{customerName()}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="content">
+    <div class="filter-group">
+      <form class="filter-form"
+       [formGroup]="datesForm"
+       (ngSubmit)="customerId() && datesForm.valid && onRefresh()">
+       <app-input-date
+        [formControl]="datesForm.controls.startDate"
+        [label]="'From'">
+      </app-input-date>
+      <app-input-date
+        [formControl]="datesForm.controls.endDate"
+        [label]="'To'">
+      </app-input-date>
+      <button
+        mat-flat-button
+        type="submit"
+        [disabled]="!customerId() || !datesForm.valid">
+        Build
+      </button>
+      </form>
+
+      <button
+        mat-flat-button
+        (click)="onPeriodChange(datesPeriodEnum.LastWeek)">
+        Week
+      </button>
+      <button
+        mat-flat-button
+        (click)="onPeriodChange(datesPeriodEnum.LastMonth)">
+        Month
+      </button>
+    </div>
+    <mat-list>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <span matListItemTitle>Orders count</span>
+        <span matListItemLine>{{report()?.ordersCount}}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matListItemTitle>Total sum</span>
+        <span matListItemLine>{{report()?.totalAmount ?? 0  | decimalPrice | currency: 'USD'}}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matListItemTitle>Most ordered product</span>
+        <span matListItemLine>{{report()?.favoriteProduct?.name}}</span>
+      </mat-list-item>
+    </mat-list>
+
+  </mat-card-content>
+</mat-card>

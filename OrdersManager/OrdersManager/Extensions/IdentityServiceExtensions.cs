@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using OrdersManager.Data.Entities.Accounting;
+using Common.Enums;
 
 namespace OrdersManager.Extensions;
 
@@ -48,7 +49,10 @@ public static class IdentityServiceExtensions
 
         services.AddAuthorization(opt =>
         {
-            opt.AddPolicy("RequiredAdminRole", policy => policy.RequireRole("Admin"));
+            opt.AddPolicy("RequiredAdminRole", policy => policy.RequireRole(RolesEnum.Admin.ToString()));
+            opt.AddPolicy("RequiredModeratorRole", policy => policy.RequireRole(RolesEnum.Admin.ToString(), RolesEnum.Moderator.ToString()));
+            opt.AddPolicy("RequiredCustomerRole", policy => policy.RequireRole(RolesEnum.Admin.ToString(), RolesEnum.Moderator.ToString(), RolesEnum.Customer.ToString()));
+            opt.AddPolicy("RequiredUserRole", policy => policy.RequireRole(RolesEnum.Admin.ToString(), RolesEnum.Moderator.ToString(), RolesEnum.Customer.ToString(), RolesEnum.User.ToString()));
         });
 
         return services;

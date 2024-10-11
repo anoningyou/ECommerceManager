@@ -8,7 +8,7 @@ public interface IPagedCollection<T> : IEnumerable<T>
     /// <summary>
     /// Gets the current page number.
     /// </summary>
-    public int CurrentPage { get; set; }
+    public int PageNumber { get; set; }
 
     /// <summary>
     /// Gets the total number of pages.

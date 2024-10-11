@@ -231,12 +231,7 @@ where TEntity : class, IIdentifiable<TPrimaryKey>
         if (predicate != null)
             query = query.Where(predicate);
         if (ignoreQueryFilters)
-            query = query.IgnoreQueryFilters();
-        if (selector == null)
-            selector = entity => entity is TResult
-                ? (TResult)(object)entity
-                : default;
-                
+            query = query.IgnoreQueryFilters();           
         if (orderBy != null)
             return orderBy(query).Select(selector);
 

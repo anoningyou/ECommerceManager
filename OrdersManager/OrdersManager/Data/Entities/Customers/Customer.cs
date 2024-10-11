@@ -24,9 +24,9 @@ public class Customer : BaseEntity
     public string Address { get; set; }
 
     /// <summary>
-    /// Gets or sets the URL of the customer's photo.
+    /// Gets or sets the Id of the customer's photo.
     /// </summary>
-    public string PhotoUrl { get; set; }
+    public Guid? PhotoId { get; set; }
 
     /// <summary>
     /// Gets or sets the unique identifier for the user associated with the customer.

@@ -1,0 +1,21 @@
+<mat-form-field class="input-field">
+  <mat-label>{{label()}}</mat-label>
+  <input matInput
+         [type]="hidePassword() ? type() : 'text'"
+         [formControl]="control"
+         [placeholder]="placeholder()">
+
+  @if (type() === 'password'){
+  <button class="password-toggle-button"
+          mat-icon-button
+          matSuffix
+          (click)="onTogglePasswordVisibility()"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hidePassword()">
+    <mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </button>
+  }
+  @if (control.invalid){
+  <mat-error class="error">{{getErrorMessage()}}</mat-error>
+  }
+</mat-form-field>

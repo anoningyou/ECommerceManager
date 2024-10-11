@@ -10,8 +10,12 @@ public interface ICommandHandler<in TCommand> where TCommand : ICommand
     /// Handles the specified command asynchronously.
     /// </summary>
     /// <param name="command">The command to handle.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    Task HandleAsync(TCommand command);
+    Task HandleAsync(
+        TCommand command,
+        CancellationToken cancellationToken = default
+    );
 }
 
 /// <summary>
@@ -25,6 +29,10 @@ public interface ICommandHandler<in TCommand, TResult> where TCommand : ICommand
     /// Handles the specified command asynchronously and returns the result.
     /// </summary>
     /// <param name="command">The command to handle.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A task representing the asynchronous operation. The task result contains the result of the command handling.</returns>
-    Task<TResult> HandleAsync(TCommand command);
+    Task<TResult> HandleAsync(
+        TCommand command,
+        CancellationToken cancellationToken = default
+    );
 }

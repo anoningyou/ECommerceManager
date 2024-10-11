@@ -18,7 +18,9 @@ public class GetCustomerReportQueryHandler (IUnitOfWork<DataContext> unitOfWork,
         .GetRepositoryReadonly<Order, Guid>();
     private readonly IRepositoryReadonly<Product, Guid> _repositoryProducts = unitOfWork
         .GetRepositoryReadonly<Product, Guid>();
-    public async Task<CustomerReportDto> HandleAsync(GetCustomerReportQuery query)
+    public async Task<CustomerReportDto> HandleAsync(
+        GetCustomerReportQuery query,
+        CancellationToken cancellationToken = default)
     {
         List<Order> orders = await _repositoryOrders.GetListAsync<Order>(
             predicate: x => x.CustomerId == query.CustomerId

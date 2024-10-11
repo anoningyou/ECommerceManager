@@ -1,0 +1,34 @@
+<mat-card class="container"
+          appearance="outlined">
+  <mat-card-header class="header">
+    <mat-card-title>Products</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="content">
+    <mat-table class="table" [dataSource]="products()">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <!-- Price Column -->
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.price | decimalPrice | currency: 'USD'}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row class="table-header"  *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+
+    <mat-paginator class="pager"
+                   [length]="productsResult().pagination?.totalCount"
+                   [pageSize]="productsResult().pagination?.pageSize"
+                   [pageSizeOptions]="[10, 25, 50, 100]"
+                   aria-label="Select page"
+                   (page)="onPagination($event)">
+    </mat-paginator>
+
+  </mat-card-content>
+</mat-card>

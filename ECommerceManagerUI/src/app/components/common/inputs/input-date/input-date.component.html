@@ -1,0 +1,13 @@
+<mat-form-field class="input-field">
+  <mat-label>{{label()}}</mat-label>
+  <input matInput
+  [formControl]="control"
+  [placeholder]="placeholder()"
+  [matDatepicker]="picker">
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+
+  @if (control.invalid){
+  <mat-error class="error">{{getErrorMessage()}}</mat-error>
+  }
+</mat-form-field>

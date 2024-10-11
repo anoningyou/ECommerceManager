@@ -21,9 +21,13 @@ public class GetProductsQueryHandler (IUnitOfWork<DataContext> unitOfWork, IMapp
 
 
     ///<inheritdoc/>
-    public Task<PagedList<ProductDto>> HandleAsync(GetProductsQuery query)
+    public Task<PagedList<ProductDto>> HandleAsync(
+        GetProductsQuery query,
+        CancellationToken cancellationToken = default)
     {
-        IQueryable<ProductDto> products = _repository.GetAll<ProductDto>(mapConfig: _mapper.ConfigurationProvider);
+        IQueryable<ProductDto> products = _repository.GetAll<ProductDto>(
+            mapConfig: _mapper.ConfigurationProvider
+        );
         if (!string.IsNullOrWhiteSpace(query.Name))
         {
             products = products.Where(x => x.Name.Contains(query.Name));

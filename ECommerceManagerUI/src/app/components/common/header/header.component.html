@@ -1,0 +1,39 @@
+<mat-toolbar>
+  @if (awailableItems().length > 0){
+  <button mat-icon-button
+          [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    @for (item of awailableItems(); track item.Root.key){
+    <a mat-menu-item
+       [routerLink]="item.Root.key">{{item.Root.value}}</a>
+    }
+  </mat-menu>
+  }
+
+
+  <span>E-Commerce Manager</span>
+  <span class="spacer"></span>
+  @if(isLoggedIn()){
+  <span>{{userName()}}</span>
+  <button mat-icon-button
+          class="icon logout-icon"
+          aria-label="Logout"
+          (click)="onLogout()">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+  }
+  @else{
+  <button mat-button
+          class="login-button"
+          (click)="onLogin()">
+    Login
+  </button>
+  <button mat-button
+          class="register-button"
+          (click)="onRegister()">
+    Register
+  </button>
+  }
+</mat-toolbar>

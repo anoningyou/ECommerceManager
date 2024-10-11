@@ -136,7 +136,7 @@ public static class Seed
             {
                 Id = Guid.NewGuid(),
                 Name = $"Product {i}",
-                Price = random.Next(1000, 999999),
+                Price = random.Next(1000, 99999),
             });
         }
 
@@ -157,12 +157,12 @@ public static class Seed
     {
         List<Order> orders = [];
         List<OrderLine> orderLines = [];
-        DateTime startDate = DateTime.Now.AddYears(-10);
+        DateTime startDate = DateTime.Now.AddMonths(-3);
         Random random = new();
 
         foreach (Customer customer in customers)
         {
-            int ordersCount = random.Next(1, 10);
+            int ordersCount = random.Next(1, 20);
             for (int orderNum = 0; orderNum < ordersCount; orderNum++)
             {
                 DateTime creationDate = DateExtensions.Random(startDate, DateTime.Now);
@@ -176,7 +176,7 @@ public static class Seed
 
                 orders.Add(order);
 
-                int orderLinesCount = random.Next(1, 10);
+                int orderLinesCount = random.Next(1, 5);
                 for (int lineNum = 0; lineNum < orderLinesCount; lineNum++)
                 {
                     Product product = products[random.Next(0, products.Count -1)];

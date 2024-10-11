@@ -29,17 +29,18 @@ public class PagedList<T> : List<T>, IPagedCollection<T>
         int pageSize)
     : base(Math.Min(count, pageSize))
     {
-        CurrentPage = pageNumber;
+        PageNumber = pageNumber;
         TotalPages = (int) Math.Ceiling(count / (double) pageSize);
         PageSize = pageSize;
         TotalCount = count;
+        Math.Round(count / (double) pageSize, 10);
         AddRange(items);
     }
 
     /// <summary>
     /// Gets the current page number.
     /// </summary>
-    public int CurrentPage { get; set; }
+    public int PageNumber { get; set; }
 
     /// <summary>
     /// Gets the total number of pages.

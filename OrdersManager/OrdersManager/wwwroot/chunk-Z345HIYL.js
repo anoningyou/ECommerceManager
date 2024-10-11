@@ -1,0 +1,1 @@
+import{t as n}from"./chunk-FVSJTNRY.js";function g(e,o,r){let t={};return r.get(e,{observe:"response",params:o}).pipe(n(a=>{a.body&&(t.result=a.body);let i=a.headers.get("Pagination");return i&&(t.pagination=JSON.parse(i)),t}))}export{g as a};

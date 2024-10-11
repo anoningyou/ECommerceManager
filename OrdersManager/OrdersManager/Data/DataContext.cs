@@ -37,7 +37,7 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
     /// </summary>
     public DbSet<OrderLine> OrderLines { get; set; }
 
-    ///<inheritdoc/>
+    //<inheritdoc/>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
